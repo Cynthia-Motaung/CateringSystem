@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿// In Data/ApplicationDbContext.cs
+
+using CateringSystem.Models; // Add this
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CateringSystem.Data
+// Change ApplicationUser to ApplicationUser here
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
-    public class ApplicationDbContext : IdentityDbContext<IdentityUser> // Use IdentityUserContext if you have a custom user class, otherwise use IdentityUser directly
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
     }
+
+    // Add this DbSet for your new model
+    public DbSet<EmployeeProfile> EmployeeProfiles { get; set; }
 }

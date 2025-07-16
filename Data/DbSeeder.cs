@@ -1,6 +1,7 @@
 ﻿// CateringSystem/Data/DbSeeder.cs
 
 using CateringSystem.Constants;
+using CateringSystem.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace CateringSystem.Data
@@ -10,7 +11,7 @@ namespace CateringSystem.Data
         public static async Task SeedRolesAndAdminAsync(IServiceProvider service)
         {
             // Get the required services
-            var userManager = service.GetService<UserManager<IdentityUser>>();
+            var userManager = service.GetService<UserManager<ApplicationUser>>();
             var roleManager = service.GetService<RoleManager<IdentityRole>>();
 
             // Seed Roles
@@ -31,7 +32,7 @@ namespace CateringSystem.Data
             if (await userManager.FindByEmailAsync(adminEmail) == null)
             {
                 // Create the admin user
-                var user = new IdentityUser
+                var user = new ApplicationUser
                 {
                     UserName = adminEmail,
                     Email = adminEmail,
